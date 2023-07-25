@@ -25,7 +25,7 @@ function App({placesCount, offers}: AppScreenProps): JSX.Element {
           <Route path={AppRoute.Login} element={<LoginScreen />} />
         </Routes>
         <Routes>
-          <Route path={AppRoute.Favotites} element={<PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}><FavoritesScreen /></PrivateRoute>} />
+          <Route path={AppRoute.Favotites} element={<PrivateRoute authorizationStatus={AuthorizationStatus.Auth}><FavoritesScreen offers={offers} /></PrivateRoute>} />
         </Routes>
         <Routes>
           <Route path={AppRoute.Offer} element={<OfferScreen />} />
