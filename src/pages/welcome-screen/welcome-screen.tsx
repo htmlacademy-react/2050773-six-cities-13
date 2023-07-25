@@ -1,10 +1,12 @@
-import Card from '../../components/card/card.tsx';
+import CardList from '../../components/card-list/card-list.tsx';
+import { Offer } from '../../types/offer.ts';
 
 type WelcomeScreenProps = {
   placesCount: number;
+  offers: Offer[];
 }
 
-function WelcomeScreen({placesCount}: WelcomeScreenProps): JSX.Element {
+function WelcomeScreen({placesCount, offers}: WelcomeScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -95,11 +97,7 @@ function WelcomeScreen({placesCount}: WelcomeScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                <CardList offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">

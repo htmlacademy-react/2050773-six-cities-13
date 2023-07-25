@@ -5,7 +5,7 @@ export const offers: Offer[] = [
     'id': '1',
     'title': 'Dirty and dangerous city',
     'type': 'apartment',
-    'price': 3000,
+    'price': 300,
     'city': {
       'name': 'San Francisco',
       'location':  {
@@ -28,7 +28,7 @@ export const offers: Offer[] = [
     'id': '2',
     'title': 'Gentrified and overpriced',
     'type': 'room',
-    'price': 2000,
+    'price': 200,
     'city': {
       'name': 'Amsterdam',
       'location':  {
@@ -51,7 +51,7 @@ export const offers: Offer[] = [
     'id': '3',
     'title': 'Cheap and sexy',
     'type': 'flat',
-    'price': 1500,
+    'price': 90,
     'city': {
       'name': 'Berlin',
       'location':  {
@@ -74,7 +74,7 @@ export const offers: Offer[] = [
     'id': '4',
     'title': 'Fun and cool',
     'type': 'studio',
-    'price': 2000,
+    'price': 70,
     'city': {
       'name': 'Belgrade',
       'location':  {

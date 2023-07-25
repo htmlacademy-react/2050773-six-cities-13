@@ -7,17 +7,19 @@ import LoginScreen from '../../pages/login-screen/login-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
+import { Offer } from '../../types/offer';
 
 type AppScreenProps = {
   placesCount: number;
+  offers: Offer[];
 }
 
-function App({placesCount}: AppScreenProps): JSX.Element {
+function App({placesCount, offers}: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route path={AppRoute.Main} element={<WelcomeScreen placesCount = {placesCount} />} />
+          <Route path={AppRoute.Main} element={<WelcomeScreen placesCount = {placesCount} offers = {offers} />} />
         </Routes>
         <Routes>
           <Route path={AppRoute.Login} element={<LoginScreen />} />
