@@ -7,16 +7,16 @@ export const offers: Offer[] = [
     'type': 'apartment',
     'price': 300,
     'city': {
-      'name': 'San Francisco',
+      'name': 'Amsterdam',
       'location':  {
-        'latitude': 37.7749,
-        'longitude': 122.4194,
+        'latitude': 52.3909553943508,
+        'longitude': 4.85309666406198,
         'zoom': 8
       },
     },
     'location':  {
-      'latitude': 37.7749,
-      'longitude': 122.4194,
+      'latitude': 52.3909553943508,
+      'longitude': 4.85309666406198,
       'zoom': 8
     },
     'isFavorite': false,
@@ -32,8 +32,8 @@ export const offers: Offer[] = [
     'city': {
       'name': 'Amsterdam',
       'location':  {
-        'latitude': 52.35514938496378,
-        'longitude': 4.673877537499948,
+        'latitude': 52.3609553943508,
+        'longitude': 4.85309666406198,
         'zoom': 8
       },
     },
@@ -53,16 +53,16 @@ export const offers: Offer[] = [
     'type': 'flat',
     'price': 90,
     'city': {
-      'name': 'Berlin',
+      'name': 'Amsterdam',
       'location':  {
-        'latitude': 52.5200,
-        'longitude': 13.4050,
+        'latitude': 52.3909553943508,
+        'longitude': 4.929309666406198,
         'zoom': 8
       },
     },
     'location':  {
-      'latitude':52.5200,
-      'longitude': 13.4050,
+      'latitude': 52.3909553943508,
+      'longitude': 4.929309666406198,
       'zoom': 8
     },
     'isFavorite': true,
@@ -76,16 +76,16 @@ export const offers: Offer[] = [
     'type': 'studio',
     'price': 70,
     'city': {
-      'name': 'Belgrade',
+      'name': 'Amsterdam',
       'location':  {
-        'latitude': 52.35514938496378,
-        'longitude': 4.673877537499948,
+        'latitude': 52.3809553943508,
+        'longitude': 4.939309666406198,
         'zoom': 8
       },
     },
     'location':  {
-      'latitude': 52.35514938496378,
-      'longitude': 4.673877537499948,
+      'latitude': 52.3809553943508,
+      'longitude': 4.939309666406198,
       'zoom': 8
     },
     'isFavorite': true,
