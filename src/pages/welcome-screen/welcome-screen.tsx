@@ -1,5 +1,6 @@
 import CardList from '../../components/card-list/card-list.tsx';
 import { Offer } from '../../types/offer.ts';
+import Map from '../../components/map/map.tsx';
 
 type WelcomeScreenProps = {
   placesCount: number;
@@ -7,6 +8,8 @@ type WelcomeScreenProps = {
 }
 
 function WelcomeScreen({placesCount, offers}: WelcomeScreenProps): JSX.Element {
+  const points = offers.map((offer) => offer.location);
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -101,7 +104,9 @@ function WelcomeScreen({placesCount, offers}: WelcomeScreenProps): JSX.Element {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map city={offers[0].city} points={points} />
+              </section>
             </div>
           </div>
         </div>
