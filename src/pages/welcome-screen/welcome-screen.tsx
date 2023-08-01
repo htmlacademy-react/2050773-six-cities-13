@@ -6,7 +6,7 @@ type WelcomeScreenProps = {
   placesCount: number;
   offers: Offer[];
 }
-
+//test
 function WelcomeScreen({placesCount, offers}: WelcomeScreenProps): JSX.Element {
   const points = offers.map((offer) => offer.location);
 
