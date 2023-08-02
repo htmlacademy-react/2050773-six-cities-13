@@ -15,7 +15,7 @@ type Host = {
   isPro: boolean;
   };
 
-export type Offer = {
+export type TOffer = {
   id: string;
   title: string;
   type: string;
@@ -28,7 +28,7 @@ export type Offer = {
   previewImage: string;
 }
 
-export type OfferDescription = {
+export type TOfferDescription = {
   description: string;
   bedrooms: number;
   goods:string[];

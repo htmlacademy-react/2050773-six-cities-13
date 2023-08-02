@@ -7,14 +7,16 @@ import LoginScreen from '../../pages/login-screen/login-screen';
 import OfferScreen from '../../pages/offer-screen/offer-screen';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
-import { Offer } from '../../types/offer';
+import { TOffer } from '../../types/offer';
+import { TReview } from '../../types/review';
 
 type AppScreenProps = {
   placesCount: number;
-  offers: Offer[];
+  offers: TOffer[];
+  reviews: TReview[];
 }
 
-function App({placesCount, offers}: AppScreenProps): JSX.Element {
+function App({placesCount, offers, reviews}: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -22,7 +24,7 @@ function App({placesCount, offers}: AppScreenProps): JSX.Element {
           <Route path={AppRoute.Main} element={<WelcomeScreen placesCount={placesCount} offers = {offers} />} />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route path={AppRoute.Favotites} element={<PrivateRoute authorizationStatus={AuthorizationStatus.Auth}><FavoritesScreen offers={offers} /></PrivateRoute>} />
-          <Route path={AppRoute.Offer} element={<OfferScreen offers={[]} />} />
+          <Route path={AppRoute.Offer} element={<OfferScreen offers={[]} reviews={reviews} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

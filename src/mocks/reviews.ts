@@ -1,10 +1,10 @@
-import { Review } from '../types/review';
+import { TReview } from '../types/review';
 
-export const reviews: Review[] = [
+export const reviews: TReview[] = [
   {
     id: '122',
     comment: 'Too dark and dirty...',
-    date: '2023-06-26T21:00:00.436Z',
+    date: '2021-05-26T21:00:00.436Z',
     rating: 1,
     user: {
       name: 'Mary',
