@@ -1,14 +1,22 @@
 import CardList from '../../components/card-list/card-list.tsx';
-import { Offer } from '../../types/offer.ts';
+import { TOffer } from '../../types/offer.ts';
 import Map from '../../components/map/map.tsx';
+import { useAppSelector } from '../../hooks/index/index.ts';
+import { useState } from 'react';
+import CitiesList from '../../components/cities-list/cities-lits.tsx';
 
 type WelcomeScreenProps = {
   placesCount: number;
-  offers: Offer[];
+  offers: TOffer[];
+  cities: string[];
 }
-//test
-function WelcomeScreen({placesCount, offers}: WelcomeScreenProps): JSX.Element {
+
+function WelcomeScreen({placesCount, offers, cities}: WelcomeScreenProps): JSX.Element {
   const points = offers.map((offer) => offer.location);
+  // const city = useAppSelector((state) => state.city);
+  // const currentOffers = offers.filter((offer) => offer.city.name === city);
+  // const [selectedOffer, setSelectedOffer] = useState<TOffer | undefined>(undefined);
+
 
   return (
     <div className="page page--gray page--main">
@@ -45,38 +53,7 @@ function WelcomeScreen({placesCount, offers}: WelcomeScreenProps): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <CitiesList cities={cities} offers={offers} />
           </section>
         </div>
         <div className="cities">

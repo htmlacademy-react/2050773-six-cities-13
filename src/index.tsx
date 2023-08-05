@@ -6,6 +6,7 @@ import { store } from './store/index.ts';
 import {Setting} from './const.ts';
 import { offers } from './mocks/offers.ts';
 import { reviews } from './mocks/reviews.ts';
+import { CITIES } from './const.ts';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,6 +19,7 @@ root.render(
         placesCount={Setting.PacesCount}
         offers={offers}
         reviews={reviews}
+        cities={CITIES}
       />
     </Provider>
   </React.StrictMode>
