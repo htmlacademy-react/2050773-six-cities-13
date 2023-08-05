@@ -1,7 +1,3 @@
-export const Setting = {
-  PacesCount: 312
-};
-
 export enum AppRoute {
   Main = '/',
   Login = '/login',

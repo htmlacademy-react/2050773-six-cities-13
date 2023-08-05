@@ -11,18 +11,17 @@ import { TOffer } from '../../types/offer';
 import { TReview } from '../../types/review';
 
 type AppScreenProps = {
-  placesCount: number;
   offers: TOffer[];
   reviews: TReview[];
   cities: string[];
 }
 
-function App({placesCount, offers, reviews, cities}: AppScreenProps): JSX.Element {
+function App({offers, reviews, cities}: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route path={AppRoute.Main} element={<WelcomeScreen placesCount={placesCount} offers = {offers} cities={cities} />} />
+          <Route path={AppRoute.Main} element={<WelcomeScreen offers = {offers} cities={cities} />} />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route path={AppRoute.Favotites} element={<PrivateRoute authorizationStatus={AuthorizationStatus.Auth}><FavoritesScreen offers={offers} /></PrivateRoute>} />
           <Route path={AppRoute.Offer} element={<OfferScreen offers={offers} reviews={reviews} />} />

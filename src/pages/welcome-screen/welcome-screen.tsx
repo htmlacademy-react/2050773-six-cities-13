@@ -2,20 +2,17 @@ import CardList from '../../components/card-list/card-list.tsx';
 import { TOffer } from '../../types/offer.ts';
 import Map from '../../components/map/map.tsx';
 import { useAppSelector } from '../../hooks/index/index.ts';
-import { useState } from 'react';
 import CitiesList from '../../components/cities-list/cities-lits.tsx';
 
 type WelcomeScreenProps = {
-  placesCount: number;
   offers: TOffer[];
   cities: string[];
 }
 
-function WelcomeScreen({placesCount, offers, cities}: WelcomeScreenProps): JSX.Element {
+function WelcomeScreen({offers, cities}: WelcomeScreenProps): JSX.Element {
   const points = offers.map((offer) => offer.location);
-  // const city = useAppSelector((state) => state.city);
-  // const currentOffers = offers.filter((offer) => offer.city.name === city);
-  // const [selectedOffer, setSelectedOffer] = useState<TOffer | undefined>(undefined);
+  const city = useAppSelector((state) => state.city);
+  const currentOffers = offers.filter((offer) => offer.city.name === city);
 
 
   return (
@@ -60,7 +57,7 @@ function WelcomeScreen({placesCount, offers, cities}: WelcomeScreenProps): JSX.E
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placesCount} places to stay in Amsterdam</b>
+              <b className="places__found">{currentOffers.length} places to stay in {city}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={Number('0')}>
