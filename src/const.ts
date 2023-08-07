@@ -1,7 +1,3 @@
-export const Setting = {
-  PacesCount: 312
-};
-
 export enum AppRoute {
   Main = '/',
   Login = '/login',
@@ -25,3 +21,5 @@ export const DateFormat = {
   DATE_FORMAT: 'YYYY-MM-DD',
   REVIEW_DATE_FORMAT: 'MMMM YYYY',
 };
+
+export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];

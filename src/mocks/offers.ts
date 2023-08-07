@@ -1,6 +1,6 @@
-import { Offer, OfferDescription } from '../types/offer';
+import { TOffer, TOfferDescription } from '../types/offer';
 
-export const offers: Offer[] = [
+export const offers: TOffer[] = [
   {
     'id': '1',
     'title': 'Dirty and dangerous city',
@@ -30,7 +30,7 @@ export const offers: Offer[] = [
     'type': 'room',
     'price': 200,
     'city': {
-      'name': 'Amsterdam',
+      'name': 'Paris',
       'location':  {
         'latitude': 52.3609553943508,
         'longitude': 4.85309666406198,
@@ -53,7 +53,7 @@ export const offers: Offer[] = [
     'type': 'flat',
     'price': 90,
     'city': {
-      'name': 'Amsterdam',
+      'name': 'Hamburg',
       'location':  {
         'latitude': 52.3909553943508,
         'longitude': 4.929309666406198,
@@ -96,7 +96,7 @@ export const offers: Offer[] = [
 
 ];
 
-export const offersCard: OfferDescription[] = [
+export const offersCard: TOfferDescription[] = [
   {
     description:
       'Blah blah something.',
