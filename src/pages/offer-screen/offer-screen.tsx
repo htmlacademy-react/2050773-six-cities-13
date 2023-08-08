@@ -177,7 +177,7 @@ function OfferScreen({offers, reviews}: OfferScreenProps):JSX.Element {
             </div>
           </div>
           <section className="offer__map map">
-            <Map city={offers[0].city} points={points} />
+            <Map offers={closeCities} />
           </section>
         </section>
         <div className="container">

@@ -6,6 +6,7 @@ import CitiesList from '../../components/cities-list/cities-lits.tsx';
 import Sort from '../../components/sort/sort.tsx';
 import { CITIES } from '../../const.ts';
 import { sorting } from '../../utils.ts';
+import { useState } from 'react';
 
 type WelcomeScreenProps = {
   offers: TOffer[];
@@ -13,11 +14,18 @@ type WelcomeScreenProps = {
 }
 
 function WelcomeScreen({offers, cities}: WelcomeScreenProps): JSX.Element {
-  const points = offers.map((offer) => offer.location);
   const city = useAppSelector((state) => state.city);
   const sortType = useAppSelector((state) => state.sortType);
 
   const currentOffers = sorting[sortType](offers.filter((offer) => offer.city.name === city));
+
+  const [selectedOffer, setSelectedOffer] = useState<TOffer | undefined>(undefined);
+
+  const handleCardHover = (point: TOffer) => {
+    const currentPoint = offers.find((offer) => offer.id === point.id);
+
+    setSelectedOffer(currentPoint);
+  };
 
 
   return (
@@ -65,12 +73,12 @@ function WelcomeScreen({offers, cities}: WelcomeScreenProps): JSX.Element {
               <b className="places__found">{currentOffers.length} places to stay in {city}</b>
               <Sort />
               <div className="cities__places-list places__list tabs__content">
-                <CardList offers={currentOffers}/>
+                <CardList offers={currentOffers} onCardHover={handleCardHover}/>
               </div>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={offers[0].city} points={points} />
+                <Map offers={currentOffers} selectedOffer={selectedOffer} />
               </section>
             </div>
           </div>

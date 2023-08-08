@@ -1,22 +1,19 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Offer } from '../../types/offer';
+import { TOffer } from '../../types/offer';
 import { AppRoute } from '../../const';
 
 type CardProps = {
-  offer: Offer;
+  offer: TOffer;
+  onCardHover: (offer: TOffer) => void;
 }
 
-function Card({offer}: CardProps): JSX.Element {
+function Card({offer, onCardHover}: CardProps): JSX.Element {
   const {isPremium, previewImage, price, title, type, id} = offer;
-
-  const [card, setActiveCard] = useState('');
 
   return (
     <article className="cities__card place-card"
       id={id}
-      onMouseEnter={({currentTarget}) => setActiveCard(currentTarget.id)}
-      onMouseLeave={() => setActiveCard('')}
+      onMouseEnter={() => onCardHover(offer)}
     >
       {isPremium
         ? <div className="place-card__mark"><span>Premium</span></div>
