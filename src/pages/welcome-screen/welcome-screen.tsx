@@ -3,16 +3,21 @@ import { TOffer } from '../../types/offer.ts';
 import Map from '../../components/map/map.tsx';
 import { useAppSelector } from '../../hooks/index/index.ts';
 import CitiesList from '../../components/cities-list/cities-lits.tsx';
+import Sort from '../../components/sort/sort.tsx';
+import { CITIES } from '../../const.ts';
+import { sorting } from '../../utils.ts';
 
 type WelcomeScreenProps = {
   offers: TOffer[];
-  cities: string[];
+  cities: typeof CITIES;
 }
 
 function WelcomeScreen({offers, cities}: WelcomeScreenProps): JSX.Element {
   const points = offers.map((offer) => offer.location);
   const city = useAppSelector((state) => state.city);
-  const currentOffers = offers.filter((offer) => offer.city.name === city);
+  const sortType = useAppSelector((state) => state.sortType);
+
+  const currentOffers = sorting[sortType](offers.filter((offer) => offer.city.name === city));
 
 
   return (
@@ -58,23 +63,9 @@ function WelcomeScreen({offers, cities}: WelcomeScreenProps): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{currentOffers.length} places to stay in {city}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={Number('0')}>
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={Number('0')}>Popular</li>
-                  <li className="places__option" tabIndex={Number('0')}>Price: low to high</li>
-                  <li className="places__option" tabIndex={Number('0')}>Price: high to low</li>
-                  <li className="places__option" tabIndex={Number('0')}>Top rated first</li>
-                </ul>
-              </form>
+              <Sort />
               <div className="cities__places-list places__list tabs__content">
-                <CardList offers={offers}/>
+                <CardList offers={currentOffers}/>
               </div>
             </section>
             <div className="cities__right-section">
