@@ -9,14 +9,31 @@ import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 import { TOffer } from '../../types/offer';
 import { TReview } from '../../types/review';
+import { useAppSelector } from '../../hooks/index';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
+
 
 type AppScreenProps = {
-  offers: TOffer[];
+  // offers: TOffer[];
   reviews: TReview[];
   cities: string[];
 }
 
-function App({offers, reviews, cities}: AppScreenProps): JSX.Element {
+function App({ reviews, cities}: AppScreenProps): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+
+  const offers = useAppSelector((state) => state.offers);
+  console.log(isOffersDataLoading);
+
+
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
+
   return (
     <HelmetProvider>
       <BrowserRouter>

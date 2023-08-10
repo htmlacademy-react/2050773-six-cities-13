@@ -14,3 +14,4 @@ export const requireAuthorization = createAction<AuthorizationStatus>('requireAu
 export const setOffersDataLoadingStatus = createAction<boolean>('setOffersDataLoadingStatus');
 
 export const setError = createAction<string | null>('setError');
+
