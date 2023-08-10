@@ -24,7 +24,6 @@ const currentCustomIcon = new Icon({
 });
 
 function Map({offers, selectedOffer}: MapProps): JSX.Element {
-  console.log('offers', offers);
   const cityLocation = offers[0].city.location;
 
   const mapRef = useRef(null);
@@ -51,7 +50,7 @@ function Map({offers, selectedOffer}: MapProps): JSX.Element {
           lng: offer.location.longitude,
         });
         marker
-          .setIcon(selectedOffer !== undefined && offer.id === selectedOffer.id
+          .setIcon(selectedOffer?.id === offer.id
             ? currentCustomIcon
             : defaultCustomIcon)
           .addTo(markerLayer);

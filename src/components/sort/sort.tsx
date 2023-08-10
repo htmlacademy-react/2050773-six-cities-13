@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { SortType } from '../../const.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks/index/index.ts';
-import classNames from 'classnames';
+import cn from 'classnames';
 import { changeSortType } from '../../store/action.ts';
 
 
@@ -25,7 +25,7 @@ function Sort(): JSX.Element {
       </span>
       <ul className="places__options places__options--custom" ref={sortingListRef}>
         {Object.values(SortType).map((type) => (
-          <li key={type} onClick={() => handleSortClick(type)} className={classNames('places__option', {'places__option--active': type === activeSortType})} tabIndex={0}>
+          <li key={type} onClick={() => handleSortClick(type)} className={cn('places__option', {'places__option--active': type === activeSortType})} tabIndex={0}>
             {type}
           </li>))}
       </ul>

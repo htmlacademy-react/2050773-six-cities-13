@@ -12,8 +12,6 @@ type OfferScreenProps = {
 
 function OfferScreen({offers, reviews}: OfferScreenProps):JSX.Element {
   const closeCities = offers.slice(0, 3);
-  const points = closeCities.map((offer) => offer.location);
-  console.log(points);
 
   return (
     <div className="page">
