@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { Provider } from 'react-redux';
 import { store } from './store/index.ts';
-import { offers } from './mocks/offers.ts';
 import { reviews } from './mocks/reviews.ts';
 import { CITIES } from './const.ts';
 import ErrorMessage from './components/error-message/error-message.tsx';
@@ -22,7 +21,6 @@ root.render(
     <Provider store={store}>
       <ErrorMessage />
       <App
-        offers={[]}
         reviews={reviews}
         cities={CITIES}
       />
