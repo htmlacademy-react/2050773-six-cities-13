@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { TOffer } from '../types/offer';
-import { changeCity, fillOffersList, changeSortType, requireAuthorization } from './action';
+import { changeCity, fillOffersList, changeSortType, requireAuthorization, setError } from './action';
 import { SortType, AuthorizationStatus } from '../const';
 
 const DEFAULT_CITY = 'Paris';
@@ -11,13 +11,15 @@ type InitialStateType = {
   offers: TOffer[];
   sortType: SortType;
   authorizationStatus: AuthorizationStatus;
+  error: string | null;
 }
 
 const InitialState: InitialStateType = {
   city: DEFAULT_CITY,
   offers: [],
   sortType: DEFAULT_SORT,
-  authorizationStatus: AuthorizationStatus.Unknown
+  authorizationStatus: AuthorizationStatus.Unknown,
+  error: null
 };
 
 const reducer = createReducer(InitialState, (builder) => {
@@ -33,6 +35,9 @@ const reducer = createReducer(InitialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     });
 });
 
