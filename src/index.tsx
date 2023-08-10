@@ -6,6 +6,7 @@ import { store } from './store/index.ts';
 import { offers } from './mocks/offers.ts';
 import { reviews } from './mocks/reviews.ts';
 import { CITIES } from './const.ts';
+import ErrorMessage from './components/error-message/error-message.tsx';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,6 +15,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ErrorMessage />
       <App
         offers={offers}
         reviews={reviews}
