@@ -10,3 +10,6 @@ export const fillOffersList = createAction<{offers: TOffer[]}>('fillOffersList')
 export const changeSortType = createAction<{type: SortType}>('changeSortType');
 
 export const requireAuthorization = createAction<AuthorizationStatus>('requireAuthorization');
+
+export const setOffersDataLoadingStatus = createAction<boolean>('setOffersDataLoadingStatus');
+
