@@ -8,6 +8,7 @@ import { CITIES, AuthorizationStatus } from '../../const.ts';
 import { sorting } from '../../utils.ts';
 import { useState } from 'react';
 import AuthorizedUser from '../../components/authorized-user/authorized-user.tsx';
+import SignIn from '../../components/sign-in/sign-in.tsx';
 
 type WelcomeScreenProps = {
   offers: TOffer[];
@@ -40,7 +41,7 @@ function WelcomeScreen({offers, cities, authorizationStatus}: WelcomeScreenProps
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </a>
             </div>
-            <AuthorizedUser />
+            {authorizationStatus === AuthorizationStatus.Auth ? <AuthorizedUser /> : <SignIn />}
           </div>
         </div>
       </header>
