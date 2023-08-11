@@ -4,7 +4,7 @@ import './loading-screen.css';
 function LoadingScreen(): JSX.Element {
   return (
     <div className="loading-screen">
-      <p>Loading...</p>
+      <p className="loading-screen-text">Loading...</p>
     </div>
   );
 }
