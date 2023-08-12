@@ -24,8 +24,6 @@ function App({ reviews, cities}: AppScreenProps): JSX.Element {
   const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
 
   const offers = useAppSelector((state) => state.offers);
-  console.log(isOffersDataLoading);
-
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
     return (
