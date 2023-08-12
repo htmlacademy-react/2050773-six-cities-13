@@ -7,8 +7,7 @@ import Sort from '../../components/sort/sort.tsx';
 import { CITIES, AuthorizationStatus } from '../../const.ts';
 import { sorting } from '../../utils.ts';
 import { useState } from 'react';
-import AuthorizedUser from '../../components/authorized-user/authorized-user.tsx';
-import SignIn from '../../components/sign-in/sign-in.tsx';
+import AuthorizationNav from '../../components/authorization-nav/authorization-nav.tsx';
 
 type WelcomeScreenProps = {
   offers: TOffer[];
@@ -17,19 +16,16 @@ type WelcomeScreenProps = {
 }
 
 function WelcomeScreen({offers, cities, authorizationStatus}: WelcomeScreenProps): JSX.Element {
+
   const city = useAppSelector((state) => state.city);
   const sortType = useAppSelector((state) => state.sortType);
-
   const currentOffers = sorting[sortType](offers.filter((offer) => offer.city.name === city));
-
   const [selectedOffer, setSelectedOffer] = useState<TOffer | undefined>(undefined);
 
   const handleCardHover = (point: TOffer) => {
     const currentPoint = offers.find((offer) => offer.id === point.id);
-
     setSelectedOffer(currentPoint);
   };
-
 
   return (
     <div className="page page--gray page--main">
@@ -41,7 +37,7 @@ function WelcomeScreen({offers, cities, authorizationStatus}: WelcomeScreenProps
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </a>
             </div>
-            {authorizationStatus === AuthorizationStatus.Auth ? <AuthorizedUser /> : <SignIn />}
+            <AuthorizationNav authorizationStatus={authorizationStatus} />
           </div>
         </div>
       </header>
