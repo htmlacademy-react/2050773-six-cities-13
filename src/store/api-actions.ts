@@ -2,10 +2,12 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { TOffer } from '../types/offer';
-import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
-import { fillOffersList, requireAuthorization, setOffersDataLoadingStatus, setError } from './action';
-import { dropToken } from '../services/token';
+import { APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
+import { fillOffersList, requireAuthorization, setOffersDataLoadingStatus, setError, redirectToRoute } from './action';
+import { dropToken, saveToken } from '../services/token';
 import { store } from '.';
+import { AuthData } from '../types/auth-data';
+import { UserData } from '../types/user-data';
 
 
 export const clearErrorAction = createAsyncThunk(
@@ -48,6 +50,19 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   },
 );
 
+export const loginAction = createAsyncThunk<void, AuthData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'user/login',
+  async (login, {dispatch, extra: api}) => {
+    const {data: {token}} = await api.post<UserData>(APIRoute.Login, login);
+    saveToken(token);
+    dispatch(redirectToRoute(AppRoute.Main));
+  },
+);
+
 export const logoutAction = createAsyncThunk<void, undefined, {
     dispatch: AppDispatch;
     state: State;
@@ -57,7 +72,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, {dispatch, extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-
     dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   },
 );

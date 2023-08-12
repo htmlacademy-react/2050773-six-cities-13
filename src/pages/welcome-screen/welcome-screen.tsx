@@ -4,29 +4,28 @@ import Map from '../../components/map/map.tsx';
 import { useAppSelector } from '../../hooks/index/index.ts';
 import CitiesList from '../../components/cities-list/cities-lits.tsx';
 import Sort from '../../components/sort/sort.tsx';
-import { CITIES } from '../../const.ts';
+import { CITIES, AuthorizationStatus } from '../../const.ts';
 import { sorting } from '../../utils.ts';
 import { useState } from 'react';
+import AuthorizationNav from '../../components/authorization-nav/authorization-nav.tsx';
 
 type WelcomeScreenProps = {
   offers: TOffer[];
   cities: typeof CITIES;
+  authorizationStatus: AuthorizationStatus;
 }
 
-function WelcomeScreen({offers, cities}: WelcomeScreenProps): JSX.Element {
+function WelcomeScreen({offers, cities, authorizationStatus}: WelcomeScreenProps): JSX.Element {
+
   const city = useAppSelector((state) => state.city);
   const sortType = useAppSelector((state) => state.sortType);
-
   const currentOffers = sorting[sortType](offers.filter((offer) => offer.city.name === city));
-
   const [selectedOffer, setSelectedOffer] = useState<TOffer | undefined>(undefined);
 
   const handleCardHover = (point: TOffer) => {
     const currentPoint = offers.find((offer) => offer.id === point.id);
-
     setSelectedOffer(currentPoint);
   };
-
 
   return (
     <div className="page page--gray page--main">
@@ -38,23 +37,7 @@ function WelcomeScreen({offers, cities}: WelcomeScreenProps): JSX.Element {
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </a>
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
-                  </a>
-                </li>
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            <AuthorizationNav authorizationStatus={authorizationStatus} />
           </div>
         </div>
       </header>
