@@ -24,7 +24,6 @@ type AppScreenProps = {
 function App({ reviews, cities}: AppScreenProps): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
-
   const offers = useAppSelector((state) => state.offers);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
@@ -41,7 +40,7 @@ function App({ reviews, cities}: AppScreenProps): JSX.Element {
           <Route path={AppRoute.Main} element={<WelcomeScreen offers = {offers} cities={cities} />} />
           <Route path={AppRoute.Login} element={<LoginScreen />} />
           <Route path={AppRoute.Favotites} element={<PrivateRoute authorizationStatus={AuthorizationStatus.Auth}><FavoritesScreen offers={offers} /></PrivateRoute>} />
-          <Route path={AppRoute.Offer} element={<OfferScreen offers={offers} reviews={reviews} />} />
+          <Route path={`${AppRoute.Offer}:id`}element={<OfferScreen />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </HistoryRouter>

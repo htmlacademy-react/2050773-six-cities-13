@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { TOffer } from '../types/offer';
+import { TOffer, TOfferDescription } from '../types/offer';
 import { SortType } from '../const';
 import { AuthorizationStatus, AppRoute } from '../const';
 
@@ -17,3 +17,8 @@ export const setError = createAction<string | null>('setError');
 
 export const redirectToRoute = createAction<AppRoute>('redirectToRoute');
 
+export const loadOfferById = createAction<TOfferDescription>('loadOfferById');
+
+export const loadNearbyOffers = createAction<TOffer[]>('loadNearbyOffers');
+
+export const loadFavorites = createAction<TOffer[]>('loadFavorites');
