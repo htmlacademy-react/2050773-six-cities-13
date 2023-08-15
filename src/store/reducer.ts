@@ -1,7 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { TOffer } from '../types/offer';
-import { changeCity, fillOffersList, changeSortType, requireAuthorization, setError, setOffersDataLoadingStatus } from './action';
-import { SortType, AuthorizationStatus } from '../const';
+import { TOffer, TOfferDescription } from '../types/offer';
+import {
+  changeCity, fillOffersList, changeSortType,
+  requireAuthorization, setError,
+  setOffersDataLoadingStatus,
+  loadNearbyOffers, loadOfferById, loadFavorites
+} from './action';
+import { fetchOfferByIdAction } from './api-actions';
+import { SortType, AuthorizationStatus, RequestStatus } from '../const';
 
 const DEFAULT_CITY = 'Paris';
 const DEFAULT_SORT = SortType.Popular;
@@ -13,6 +19,10 @@ type InitialStateType = {
   authorizationStatus: AuthorizationStatus;
   isOffersDataLoading: boolean;
   error: string | null;
+  favorites: TOffer[];
+  offer: TOfferDescription | null;
+  offerFetchingStatus: RequestStatus;
+  nearbyOffers: TOffer[];
 }
 
 const InitialState: InitialStateType = {
@@ -21,7 +31,11 @@ const InitialState: InitialStateType = {
   sortType: DEFAULT_SORT,
   authorizationStatus: AuthorizationStatus.Unknown,
   isOffersDataLoading: false,
-  error: null
+  error: null,
+  favorites: [],
+  offer: null,
+  offerFetchingStatus: RequestStatus.Idle,
+  nearbyOffers: [],
 };
 
 const reducer = createReducer(InitialState, (builder) => {
@@ -43,6 +57,24 @@ const reducer = createReducer(InitialState, (builder) => {
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(loadOfferById, (state, action) => {
+      state.offer = action.payload;
+    })
+    .addCase(loadNearbyOffers, (state, action) => {
+      state.nearbyOffers = action.payload;
+    })
+    .addCase(loadFavorites, (state, action) => {
+      state.favorites = action.payload;
+    })
+    .addCase(fetchOfferByIdAction.pending, (state) => {
+      state.offerFetchingStatus = RequestStatus.Pending;
+    })
+    .addCase(fetchOfferByIdAction.fulfilled, (state) => {
+      state.offerFetchingStatus = RequestStatus.Success;
+    })
+    .addCase(fetchOfferByIdAction.rejected, (state) => {
+      state.offerFetchingStatus = RequestStatus.Error;
     });
 });
 

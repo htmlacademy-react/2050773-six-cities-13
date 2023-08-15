@@ -24,7 +24,6 @@ export const DateFormat = {
 
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-
 export enum SortType {
   Popular = 'Popular',
   PriceLow = 'Price: low to high',
@@ -42,3 +41,10 @@ export enum APIRoute {
 }
 
 export const TIMEOUT_SHOW_ERROR = 2000;
+
+export enum RequestStatus {
+  Idle = 'Idle',
+  Pending = 'Pending',
+  Success = 'Success',
+  Error = 'Error',
+}
