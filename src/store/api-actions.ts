@@ -42,12 +42,12 @@ export const fetchOfferByIdAction = createAsyncThunk<void, string, {
 
 export const clearErrorAction = createAsyncThunk(
   'clearError',
-  () => {
+  async (_, thunkAPI) => {
     setTimeout(
-      () => store.dispatch(setError(null)),
+      () => thunkAPI.dispatch(setError(null)),
       TIMEOUT_SHOW_ERROR,
     );
-  },
+  }
 );
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {

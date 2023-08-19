@@ -4,13 +4,14 @@ import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/index/index.ts';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchOfferByIdAction, fetchNearbyOffersAction } from '../../store/api-actions.ts';
+import { fetchNearbyOffersAction } from '../../store/api-actions.ts';
 import { RequestStatus } from '../../const.ts';
 import { Helmet } from 'react-helmet-async';
 import NotFoundScreen from '../not-found-screen/not-found-screen.tsx';
 import LoadingScreen from '../loading-screen/loading-screen.tsx';
 import OfferDescription from '../../components/offer-description/offer-description.tsx';
 import { TReview } from '../../types/review.ts';
+import { fetchOfferByIdAction } from '../../store/api-actions.ts';
 
 type OfferScreenProps = {
   reviews: TReview[];
@@ -23,6 +24,8 @@ function OfferScreen({reviews}: OfferScreenProps):JSX.Element {
   const offer = useAppSelector((state) => state.offer);
   const closeCities = useAppSelector((state) => state.nearbyOffers).slice(0,3);
   const fetchingStatus = useAppSelector((state) => state.offerFetchingStatus);
+
+  console.log(id);
 
   useEffect(() => {
     if (id) {
