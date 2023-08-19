@@ -7,7 +7,7 @@ import Sort from '../../components/sort/sort.tsx';
 import { CITIES, AuthorizationStatus } from '../../const.ts';
 import { sorting } from '../../utils.ts';
 import { useState } from 'react';
-import AuthorizationNav from '../../components/authorization-nav/authorization-nav.tsx';
+import AuthorizationNav from '../../components/authorization-header/authorization-header.tsx';
 
 type WelcomeScreenProps = {
   offers: TOffer[];
@@ -28,19 +28,7 @@ function WelcomeScreen({offers, cities, authorizationStatus}: WelcomeScreenProps
   };
 
   return (
-    <div className="page page--gray page--main">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link header__logo-link--active">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
-            </div>
-            <AuthorizationNav authorizationStatus={authorizationStatus} />
-          </div>
-        </div>
-      </header>
+
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -67,7 +55,7 @@ function WelcomeScreen({offers, cities, authorizationStatus}: WelcomeScreenProps
           </div>
         </div>
       </main>
-    </div>
+
   );
 }
 
