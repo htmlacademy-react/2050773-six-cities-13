@@ -4,16 +4,21 @@ import { AppRoute } from '../../const';
 
 type CardProps = {
   offer: TOffer;
-  onCardHover: (offer: TOffer) => void;
-}
+  onCardHover?: (offer: TOffer) => void;}
 
 function Card({offer, onCardHover}: CardProps): JSX.Element {
   const {isPremium, previewImage, price, title, type, id} = offer;
 
+  const handlerCardHover = (card: TOffer) => {
+    if (onCardHover) {
+      onCardHover(card);
+    }
+  };
+
   return (
     <article className="cities__card place-card"
       id={id}
-      onMouseEnter={() => onCardHover(offer)}
+      onMouseEnter={() => handlerCardHover(offer)}
     >
       {isPremium
         ? <div className="place-card__mark"><span>Premium</span></div>

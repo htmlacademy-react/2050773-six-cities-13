@@ -4,18 +4,16 @@ import Map from '../../components/map/map.tsx';
 import { useAppSelector } from '../../hooks/index/index.ts';
 import CitiesList from '../../components/cities-list/cities-lits.tsx';
 import Sort from '../../components/sort/sort.tsx';
-import { CITIES, AuthorizationStatus } from '../../const.ts';
+import { CITIES } from '../../const.ts';
 import { sorting } from '../../utils.ts';
 import { useState } from 'react';
-import AuthorizationNav from '../../components/authorization-header/authorization-header.tsx';
 
 type WelcomeScreenProps = {
   offers: TOffer[];
   cities: typeof CITIES;
-  authorizationStatus: AuthorizationStatus;
 }
 
-function WelcomeScreen({offers, cities, authorizationStatus}: WelcomeScreenProps): JSX.Element {
+function WelcomeScreen({offers, cities}: WelcomeScreenProps): JSX.Element {
 
   const city = useAppSelector((state) => state.city);
   const sortType = useAppSelector((state) => state.sortType);
@@ -24,12 +22,11 @@ function WelcomeScreen({offers, cities, authorizationStatus}: WelcomeScreenProps
 
   const handleCardHover = (point: TOffer) => {
     const currentPoint = offers.find((offer) => offer.id === point.id);
+
     setSelectedOffer(currentPoint);
   };
 
   return (
-
-
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -55,7 +52,6 @@ function WelcomeScreen({offers, cities, authorizationStatus}: WelcomeScreenProps
           </div>
         </div>
       </main>
-
   );
 }
 

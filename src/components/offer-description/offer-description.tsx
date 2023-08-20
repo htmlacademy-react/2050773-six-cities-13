@@ -1,14 +1,13 @@
 import { TOfferDescription } from '../../types/offer';
-import { TReview } from '../../types/review';
-import ReviewsList from '../reviews-list/reviews-list';
+// import { TReview } from '../../types/review';
+// import ReviewsList from '../reviews-list/reviews-list';
 import CommentForm from '../comment-form/comment-form';
 
 type OfferDetailsProps = {
     offer: TOfferDescription;
-    reviews: TReview[];
 };
 
-function OfferDescription({offer, reviews}: OfferDetailsProps): JSX.Element {
+function OfferDescription({offer}: OfferDetailsProps): JSX.Element {
   const {images, isPremium, title, rating, type, bedrooms, maxAdults, price, host, goods, description} = offer;
 
   return (
@@ -74,7 +73,7 @@ function OfferDescription({offer, reviews}: OfferDetailsProps): JSX.Element {
             </div>
           </div>
           <section className="offer__reviews reviews">
-            <ReviewsList reviews={reviews} />
+            {/* <ReviewsList reviews={reviews} /> */}
             <CommentForm />
           </section>
         </div>

@@ -10,7 +10,6 @@ import {
   loadOfferById, loadNearbyOffers, loadFavorites
 } from './action';
 import { dropToken, saveToken } from '../services/token';
-import { store } from '.';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
 
@@ -34,11 +33,18 @@ export const fetchOfferByIdAction = createAsyncThunk<void, string, {
   extra: AxiosInstance;
 }>(
   'fetchOfferById',
-  async (offerId, {dispatch, extra: api}) => {
-    const {data} = await api.get<TOfferDescription>(`${APIRoute.Offers}/${offerId}`);
-    dispatch(loadOfferById(data));
+  async (offerId, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.get<TOfferDescription>(`${APIRoute.Offers}/${offerId}`);
+      dispatch(loadOfferById(data));
+    } catch (error) {
+      console.error("Error fetching offer by ID:", error);
+      dispatch(setError("Failed to fetch the offer by its ID."));
+      // You can handle more error-related logic here if necessary
+    }
   },
 );
+
 
 export const clearErrorAction = createAsyncThunk(
   'clearError',
