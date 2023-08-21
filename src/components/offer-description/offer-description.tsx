@@ -5,6 +5,7 @@ import CommentForm from '../comment-form/comment-form';
 import { useAppSelector, useAppDispatch } from '../../hooks/index';
 import { fetchCommentsAction } from '../../store/api-actions';
 import { useEffect } from 'react';
+import { AuthorizationStatus } from '../../const';
 
 type OfferDetailsProps = {
     offer: TOfferDescription;
@@ -86,7 +87,7 @@ function OfferDescription({offer}: OfferDetailsProps): JSX.Element {
           </div>
           <section className="offer__reviews reviews">
             <ReviewsList reviews={reviews} />
-            <CommentForm />
+            {authorizationStatus === AuthorizationStatus.Auth && <CommentForm id={id} />}
           </section>
         </div>
       </div>

@@ -83,6 +83,8 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     const {data: {token}} = await api.post<UserData>(APIRoute.Login, login);
     saveToken(token);
     dispatch(redirectToRoute(AppRoute.Main));
+    // console.log('test');
+
   },
 );
 
