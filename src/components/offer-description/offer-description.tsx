@@ -1,14 +1,26 @@
 import { TOfferDescription } from '../../types/offer';
 // import { TReview } from '../../types/review';
-// import ReviewsList from '../reviews-list/reviews-list';
+import ReviewsList from '../reviews-list/reviews-list';
 import CommentForm from '../comment-form/comment-form';
+import { useAppSelector, useAppDispatch } from '../../hooks/index';
+import { fetchCommentsAction } from '../../store/api-actions';
+import { useEffect } from 'react';
 
 type OfferDetailsProps = {
     offer: TOfferDescription;
 };
 
 function OfferDescription({offer}: OfferDetailsProps): JSX.Element {
-  const {images, isPremium, title, rating, type, bedrooms, maxAdults, price, host, goods, description} = offer;
+  const {id, images, isPremium, title, rating, type, bedrooms, maxAdults, price, host, goods, description} = offer;
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const reviews = useAppSelector((state) => state.comments);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchCommentsAction(id));
+    }
+  }, [id, dispatch]);
 
   return (
     <>
@@ -73,7 +85,7 @@ function OfferDescription({offer}: OfferDetailsProps): JSX.Element {
             </div>
           </div>
           <section className="offer__reviews reviews">
-            {/* <ReviewsList reviews={reviews} /> */}
+            <ReviewsList reviews={reviews} />
             <CommentForm />
           </section>
         </div>

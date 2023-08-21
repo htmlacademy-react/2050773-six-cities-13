@@ -2,12 +2,14 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { TOffer, TOfferDescription } from '../types/offer';
+import { TReview } from '../types/review';
 import { APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import {
   fillOffersList, requireAuthorization,
   setOffersDataLoadingStatus,
   setError, redirectToRoute,
-  loadOfferById, loadNearbyOffers, loadFavorites
+  loadOfferById, loadNearbyOffers, loadFavorites,
+  loadComments, sendComment
 } from './action';
 import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
@@ -40,7 +42,6 @@ export const fetchOfferByIdAction = createAsyncThunk<void, string, {
     } catch (error) {
       console.error("Error fetching offer by ID:", error);
       dispatch(setError("Failed to fetch the offer by its ID."));
-      // You can handle more error-related logic here if necessary
     }
   },
 );
@@ -121,5 +122,29 @@ export const fetchFavoritesAction = createAsyncThunk<void, undefined, {
     const {data} = await api.get<TOffer[]>(APIRoute.Faforite);
     dispatch(setOffersDataLoadingStatus(false));
     dispatch(loadFavorites(data));
+  },
+);
+
+export const fetchCommentsAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchComments',
+  async (offerId, {dispatch, extra: api}) => {
+    const {data} = await api.get<TReview[]>(`${APIRoute.Comments}/${offerId}`);
+    dispatch(loadComments(data));
+  },
+);
+
+export const fetchSendCommentAction = createAsyncThunk<void, {rating: number; comment: string; id: string}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchSgtghgnfnhbendComment',
+  async ({rating, comment, id}, {dispatch, extra: api}) => {
+    const {data} = await api.post<Comment>(`${APIRoute.Comments}/${id}`, {rating, comment});
+    dispatch(sendComment(data));
   },
 );

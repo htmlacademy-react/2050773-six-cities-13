@@ -3,12 +3,12 @@ import './map.css';
 import 'leaflet/dist/leaflet.css';
 import { useRef, useEffect } from 'react';
 import useMap from '../../hooks/use-map/use-map';
-import { TOffer } from '../../types/offer';
+import { TOffer, TOfferDescription } from '../../types/offer';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 
 type MapProps = {
     offers: TOffer[];
-    selectedOffer: TOffer | undefined;
+    selectedOffer?: TOffer | TOfferDescription |undefined;
 }
 
 const defaultCustomIcon = new Icon({
@@ -24,7 +24,7 @@ const currentCustomIcon = new Icon({
 });
 
 function Map({offers, selectedOffer}: MapProps): JSX.Element {
-  const cityLocation = offers[0].city.location;
+  const cityLocation = offers[0]?.city.location;
 
   const mapRef = useRef(null);
   const map = useMap({mapRef, cityLocation});

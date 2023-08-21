@@ -1,10 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { TOffer, TOfferDescription } from '../types/offer';
+import { TReview, Comment } from '../types/review';
 import {
   changeCity, fillOffersList, changeSortType,
   requireAuthorization, setError,
   setOffersDataLoadingStatus,
-  loadNearbyOffers, loadOfferById, loadFavorites
+  loadNearbyOffers, loadOfferById, loadFavorites,
+  loadComments, sendComment
 } from './action';
 import { fetchOfferByIdAction } from './api-actions';
 import { SortType, AuthorizationStatus, RequestStatus } from '../const';
@@ -23,6 +25,8 @@ type InitialStateType = {
   offer: TOfferDescription | null;
   offerFetchingStatus: RequestStatus;
   nearbyOffers: TOffer[];
+  comments: TReview[];
+  comment: Comment | null;
 }
 
 const InitialState: InitialStateType = {
@@ -36,6 +40,8 @@ const InitialState: InitialStateType = {
   offer: null,
   offerFetchingStatus: RequestStatus.Idle,
   nearbyOffers: [],
+  comments: [],
+  comment: null,
 };
 
 const reducer = createReducer(InitialState, (builder) => {
@@ -75,6 +81,12 @@ const reducer = createReducer(InitialState, (builder) => {
     })
     .addCase(fetchOfferByIdAction.rejected, (state) => {
       state.offerFetchingStatus = RequestStatus.Error;
+    })
+    .addCase(loadComments, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(sendComment, (state, action) => {
+      state.comment = action.payload;
     });
 });
 
