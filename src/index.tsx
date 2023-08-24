@@ -22,7 +22,6 @@ root.render(
     <Provider store={store}>
       <ErrorMessage />
       <App
-        reviews={reviews}
         cities={CITIES}
       />
     </Provider>

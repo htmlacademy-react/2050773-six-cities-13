@@ -17,6 +17,7 @@ function LoginScreen(): JSX.Element {
 
     if (data !== null) {
       dispatch(loginAction(data));
+      // console.log(data)
     }
   };
 

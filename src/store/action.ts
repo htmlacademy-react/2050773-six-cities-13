@@ -1,5 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
-import { TOffer, TOfferDescription } from '../types/offer';
+import { TOffer, TOfferDescription} from '../types/offer';
+import { TReview } from '../types/review';
 import { SortType } from '../const';
 import { AuthorizationStatus, AppRoute } from '../const';
 
@@ -22,3 +23,7 @@ export const loadOfferById = createAction<TOfferDescription>('loadOfferById');
 export const loadNearbyOffers = createAction<TOffer[]>('loadNearbyOffers');
 
 export const loadFavorites = createAction<TOffer[]>('loadFavorites');
+
+export const loadComments = createAction<TReview[]>('loadComments');
+
+export const sendComment = createAction<Comment>('sendComment');

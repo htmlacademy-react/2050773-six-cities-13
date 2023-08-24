@@ -4,20 +4,17 @@ import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/index/index.ts';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchOfferByIdAction, fetchNearbyOffersAction } from '../../store/api-actions.ts';
+import { fetchNearbyOffersAction } from '../../store/api-actions.ts';
 import { RequestStatus } from '../../const.ts';
 import { Helmet } from 'react-helmet-async';
 import NotFoundScreen from '../not-found-screen/not-found-screen.tsx';
 import LoadingScreen from '../loading-screen/loading-screen.tsx';
 import OfferDescription from '../../components/offer-description/offer-description.tsx';
-import { TReview } from '../../types/review.ts';
+// import { TReview } from '../../types/review.ts';
+import { fetchOfferByIdAction } from '../../store/api-actions.ts';
 
-type OfferScreenProps = {
-  reviews: TReview[];
-}
 
-function OfferScreen({reviews}: OfferScreenProps):JSX.Element {
-
+function OfferScreen():JSX.Element {
   const {id} = useParams();
   const dispatch = useDispatch();
   const offer = useAppSelector((state) => state.offer);
@@ -31,10 +28,8 @@ function OfferScreen({reviews}: OfferScreenProps):JSX.Element {
     }
   }, [id, dispatch]);
 
-
   return (
     <div className="page">
-
       {fetchingStatus === RequestStatus.Error && <NotFoundScreen />}
       {fetchingStatus === RequestStatus.Pending && <LoadingScreen />}
       {fetchingStatus === RequestStatus.Success && offer && (
@@ -42,10 +37,9 @@ function OfferScreen({reviews}: OfferScreenProps):JSX.Element {
           <Helmet>
             <title>{`${offer.city.name}. ${offer.title}`}</title>
           </Helmet>
-
           <main className="page__main page__main--offer">
             <section className="offer">
-              <OfferDescription offer={offer} reviews={reviews} />
+              <OfferDescription offer={offer} />
               <section className="offer__map map">
                 <Map offers={closeCities} selectedOffer={offer}/>
               </section>
@@ -54,7 +48,7 @@ function OfferScreen({reviews}: OfferScreenProps):JSX.Element {
               <section className="near-places places">
                 <h2 className="near-places__title">Other places in the neighbourhood</h2>
                 <div className="near-places__list places__list">
-                  {closeCities.map((city) => <Card key={city.id} offer={city} />)}
+                  {closeCities.map((closeCity) => <Card key={closeCity.id} offer={closeCity} />)}
                 </div>
               </section>
             </div>

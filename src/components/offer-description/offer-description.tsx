@@ -1,15 +1,27 @@
 import { TOfferDescription } from '../../types/offer';
-import { TReview } from '../../types/review';
+// import { TReview } from '../../types/review';
 import ReviewsList from '../reviews-list/reviews-list';
 import CommentForm from '../comment-form/comment-form';
+import { useAppSelector, useAppDispatch } from '../../hooks/index';
+import { fetchCommentsAction } from '../../store/api-actions';
+import { useEffect } from 'react';
+import { AuthorizationStatus } from '../../const';
 
 type OfferDetailsProps = {
     offer: TOfferDescription;
-    reviews: TReview[];
 };
 
-function OfferDescription({offer, reviews}: OfferDetailsProps): JSX.Element {
-  const {images, isPremium, title, rating, type, bedrooms, maxAdults, price, host, goods, description} = offer;
+function OfferDescription({offer}: OfferDetailsProps): JSX.Element {
+  const {id, images, isPremium, title, rating, type, bedrooms, maxAdults, price, host, goods, description} = offer;
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const reviews = useAppSelector((state) => state.comments);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchCommentsAction(id));
+    }
+  }, [id, dispatch]);
 
   return (
     <>
@@ -75,7 +87,7 @@ function OfferDescription({offer, reviews}: OfferDetailsProps): JSX.Element {
           </div>
           <section className="offer__reviews reviews">
             <ReviewsList reviews={reviews} />
-            <CommentForm />
+            {authorizationStatus === AuthorizationStatus.Auth && <CommentForm id={id} />}
           </section>
         </div>
       </div>

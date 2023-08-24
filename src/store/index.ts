@@ -12,5 +12,5 @@ export const store = configureStore({
       thunk: {
         extraArgument: api,
       }
-    }).concat(redirect)
+    }).concat(redirect),
 });
