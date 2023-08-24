@@ -6,6 +6,7 @@ import { useAppSelector } from '../../hooks/index';
 
 function FavoritesScreen(): JSX.Element {
   const favorites = useAppSelector((state) => state.favorites);
+  console.log(favorites);
 
   return(
     <div className="page">

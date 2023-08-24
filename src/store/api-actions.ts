@@ -9,7 +9,7 @@ import {
   setOffersDataLoadingStatus,
   setError, redirectToRoute,
   loadOfferById, loadNearbyOffers, loadFavorites,
-  loadComments, sendComment
+  loadComments,
 } from './action';
 import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
