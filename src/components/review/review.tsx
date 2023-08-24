@@ -11,6 +11,8 @@ function Review({reviews}: ReviewProps): JSX.Element {
     <>
       {reviews.map((review) => {
         const {user, rating, comment, date} = review;
+        console.log(rating);
+
         return (
           <li key={review.id} className='reviews__item'>
             <div className='reviews__user user'>
