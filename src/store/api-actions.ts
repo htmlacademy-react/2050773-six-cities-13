@@ -127,6 +127,18 @@ export const fetchFavoritesAction = createAsyncThunk<void, undefined, {
   },
 );
 
+export const fetchChangeStatusFavoriteAction = createAsyncThunk<TOffer, {status: number; id: string}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchChangeStatusFavorite',
+  async ({status, id}, {extra: api}) => {
+    const {data} = await api.post<TOffer>(`${APIRoute.Faforite}/${id}/${status}`);
+    return data;
+  },
+);
+
 export const fetchCommentsAction = createAsyncThunk<void, string, {
   dispatch: AppDispatch;
   state: State;
@@ -139,14 +151,16 @@ export const fetchCommentsAction = createAsyncThunk<void, string, {
   },
 );
 
-export const fetchSendCommentAction = createAsyncThunk<void, {rating: number; comment: string; id: string}, {
+export const fetchSendCommentAction = createAsyncThunk<Comment | null, {rating: number; comment: FormDataEntryValue; id: string}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchSgtghgnfnhbendComment',
+  'fetchSendComment',
   async ({rating, comment, id}, {dispatch, extra: api}) => {
+    // console.log(rating, comment, id);
     const {data} = await api.post<Comment>(`${APIRoute.Comments}/${id}`, {rating, comment});
-    dispatch(sendComment(data));
+    dispatch(fetchCommentsAction(id));
+    return data;
   },
 );

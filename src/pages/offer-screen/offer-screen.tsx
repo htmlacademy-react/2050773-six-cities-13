@@ -41,7 +41,7 @@ function OfferScreen():JSX.Element {
             <section className="offer">
               <OfferDescription offer={offer} />
               <section className="offer__map map">
-                <Map offers={closeCities} selectedOffer={offer}/>
+                {/* <Map offers={closeCities} selectedOffer={offer}/> */}
               </section>
             </section>
             <div className="container">

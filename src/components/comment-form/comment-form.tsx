@@ -1,5 +1,4 @@
 import { useAppDispatch } from '../../hooks/index';
-import { Comment } from '../../types/review';
 import { fetchSendCommentAction } from '../../store/api-actions';
 import { FormEvent } from 'react';
 
@@ -16,16 +15,18 @@ function CommentForm({id}: CommentFormProps): JSX.Element {
 
     const form = evt.currentTarget;
     const formData = new FormData(form);
-    const {ratingData, comment} = Object.fromEntries(formData) as Comment;
+    const {rating: ratingData, review: comment} = Object.fromEntries(formData);
     const rating = Number(ratingData);
 
-    if (rating !== null) {
+    if (!isNaN(rating) && comment && comment.length >= 50) {
       dispatch(fetchSendCommentAction({rating, comment, id}));
+    } else {
+      console.error('Invalid rating or comment. Please ensure all fields are filled and comment has a minimum of 50 characters.');
     }
   };
 
   return(
-    <form className="reviews__form form" action="#" method="post"  onSubmit={handleSubmit}>
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" />
@@ -64,7 +65,7 @@ function CommentForm({id}: CommentFormProps): JSX.Element {
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" >Submit</button>
       </div>
     </form>
   );
