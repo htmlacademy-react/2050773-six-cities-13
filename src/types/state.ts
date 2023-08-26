@@ -28,3 +28,8 @@ export type OfferIdProcess = {
   comment: Comment | null;
   hasError: boolean;
 }
+
+export type FavoriteProcess = {
+  favorites: TOffer[];
+  isFavoritesDataLoading: boolean;
+}

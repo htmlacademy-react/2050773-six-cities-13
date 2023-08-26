@@ -5,7 +5,7 @@ import { fetchOfferByIdAction, fetchNearbyOffersAction, fetchCommentsAction, fet
 
 const initialState: OfferIdProcess = {
   offer: null,
-  isOfferDataLoading: false,
+  offerFetchingStatus: false,
   nearbyOffers: [],
   comments: [],
   comment: null,

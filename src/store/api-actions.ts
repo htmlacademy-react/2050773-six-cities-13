@@ -84,17 +84,15 @@ export const fetchNearbyOffersAction = createAsyncThunk<TOffer[], string, {
 );
 
 
-export const fetchFavoritesAction = createAsyncThunk<void, undefined, {
+export const fetchFavoritesAction = createAsyncThunk<TOffer[], undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'fetchFavorites',
-  async (_arg, {dispatch, extra: api}) => {
-    dispatch(setOffersDataLoadingStatus(true));
-    const {data} = await api.get<TOffer[]>(APIRoute.Faforite);
-    dispatch(setOffersDataLoadingStatus(false));
-    dispatch(loadFavorites(data));
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<TOffer[]>(APIRoute.Favorite);
+    return data;
   },
 );
 
@@ -105,7 +103,7 @@ export const fetchChangeStatusFavoriteAction = createAsyncThunk<TOffer, {status:
 }>(
   'fetchChangeStatusFavorite',
   async ({status, id}, {extra: api}) => {
-    const {data} = await api.post<TOffer>(`${APIRoute.Faforite}/${id}/${status}`);
+    const {data} = await api.post<TOffer>(`${APIRoute.Favorite}/${id}/${status}`);
     return data;
   },
 );
