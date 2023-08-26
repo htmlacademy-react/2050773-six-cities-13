@@ -5,9 +5,7 @@ import { TOffer, TOfferDescription } from '../types/offer';
 import { TReview } from '../types/review';
 import { APIRoute, AppRoute, TIMEOUT_SHOW_ERROR } from '../const';
 import {
-  fillOffersList,
-  setOffersDataLoadingStatus,
-  setError, redirectToRoute,
+  setOffersDataLoadingStatus, redirectToRoute,
   loadOfferById, loadNearbyOffers, loadFavorites,
   loadComments,
 } from './action';
@@ -21,11 +19,9 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }>(
   'fetchOffers',
-  async (_arg, {dispatch, extra: api}) => {
-    dispatch(setOffersDataLoadingStatus(true));
+  async (_arg, { extra: api}) => {
     const {data} = await api.get<TOffer[]>(APIRoute.Offers);
-    dispatch(setOffersDataLoadingStatus(false));
-    dispatch(fillOffersList({offers: data}));
+    return(data);
   },
 );
 
@@ -41,20 +37,10 @@ export const fetchOfferByIdAction = createAsyncThunk<void, string, {
       dispatch(loadOfferById(data));
     } catch (error) {
       console.error('Error fetching offer by ID:', error);
-      dispatch(setError('Failed to fetch the offer by its ID.'));
     }
   },
 );
 
-export const clearErrorAction = createAsyncThunk(
-  'clearError',
-  async (_, thunkAPI) => {
-    setTimeout(
-      () => thunkAPI.dispatch(setError(null)),
-      TIMEOUT_SHOW_ERROR,
-    );
-  }
-);
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
     dispatch: AppDispatch;
