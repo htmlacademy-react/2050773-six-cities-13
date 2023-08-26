@@ -1,6 +1,7 @@
 import { store } from '../store/index';
 import { AuthorizationStatus } from '../const';
-import { TOffer } from './offer';
+import { TOffer, TOfferDescription } from './offer';
+import { TReview } from './review';
 import { SortType } from '../const';
 
 export type State = ReturnType<typeof store.getState>;
@@ -17,4 +18,13 @@ export type OffersProcess = {
   sortType: SortType;
   isOffersDataLoading: boolean;
   error: boolean;
+}
+
+export type OfferIdProcess = {
+  offer: TOfferDescription | null;
+  offerFetchingStatus: boolean;
+  nearbyOffers: TOffer[];
+  comments: TReview[];
+  comment: Comment | null;
+  hasError: boolean;
 }
