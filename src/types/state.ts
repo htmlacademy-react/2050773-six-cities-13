@@ -22,7 +22,7 @@ export type OffersProcess = {
 
 export type OfferIdProcess = {
   offer: TOfferDescription | null;
-  offerFetchingStatus: boolean;
+  isOfferDataLoading: boolean;
   nearbyOffers: TOffer[];
   comments: TReview[];
   comment: Comment | null;

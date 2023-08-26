@@ -5,7 +5,7 @@ import { fetchOfferByIdAction, fetchNearbyOffersAction, fetchCommentsAction, fet
 
 const initialState: OfferIdProcess = {
   offer: null,
-  offerFetchingStatus: false,
+  isOfferDataLoading: false,
   nearbyOffers: [],
   comments: [],
   comment: null,
@@ -19,35 +19,35 @@ export const offerIdProcess = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchOfferByIdAction.pending, (state) => {
-        state.offerFetchingStatus = true;
+        state.isOfferDataLoading = true;
       })
       .addCase(fetchOfferByIdAction.fulfilled, (state, action) => {
         state.offer = action.payload;
-        state.offerFetchingStatus = false;
+        state.isOfferDataLoading = false;
       })
       .addCase(fetchNearbyOffersAction.pending, (state) => {
-        state.offerFetchingStatus = true;
+        state.isOfferDataLoading = true;
       })
       .addCase(fetchNearbyOffersAction.fulfilled, (state, action) => {
         state.nearbyOffers = action.payload;
-        state.offerFetchingStatus = false;
+        state.isOfferDataLoading = false;
       })
       .addCase(fetchCommentsAction.pending, (state) => {
-        state.offerFetchingStatus = true;
+        state.isOfferDataLoading = true;
       })
       .addCase(fetchCommentsAction.fulfilled, (state, action) => {
         state.comments = action.payload;
-        state.offerFetchingStatus = false;
+        state.isOfferDataLoading = false;
       })
       .addCase(fetchSendCommentAction.pending, (state) => {
-        state.offerFetchingStatus = true;
+        state.isOfferDataLoading = true;
       })
       .addCase(fetchSendCommentAction.fulfilled, (state, action) => {
         state.comment = action.payload;
-        state.offerFetchingStatus = false;
+        state.isOfferDataLoading = false;
       })
       .addCase(fetchSendCommentAction.rejected, (state) => {
-        state.offerFetchingStatus = false;
+        state.isOfferDataLoading = false;
         state.hasError = true;
       }).addCase(fetchChangeStatusFavoriteAction.fulfilled, (state) => {
         state.offer = {...state.offer,

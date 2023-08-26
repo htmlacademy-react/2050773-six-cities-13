@@ -4,9 +4,7 @@ import { AppDispatch, State } from '../types/state';
 import { TOffer, TOfferDescription } from '../types/offer';
 import { TReview } from '../types/review';
 import { APIRoute, AppRoute } from '../const';
-import {
-  setOffersDataLoadingStatus, redirectToRoute, loadFavorites,
-} from './action';
+import { redirectToRoute} from './action';
 import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
