@@ -3,9 +3,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { TOffer, TOfferDescription } from '../types/offer';
 import { TReview } from '../types/review';
-import { APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
+import { APIRoute, AppRoute, TIMEOUT_SHOW_ERROR } from '../const';
 import {
-  fillOffersList, requireAuthorization,
+  fillOffersList,
   setOffersDataLoadingStatus,
   setError, redirectToRoute,
   loadOfferById, loadNearbyOffers, loadFavorites,
@@ -40,12 +40,11 @@ export const fetchOfferByIdAction = createAsyncThunk<void, string, {
       const { data } = await api.get<TOfferDescription>(`${APIRoute.Offers}/${offerId}`);
       dispatch(loadOfferById(data));
     } catch (error) {
-      console.error("Error fetching offer by ID:", error);
-      dispatch(setError("Failed to fetch the offer by its ID."));
+      console.error('Error fetching offer by ID:', error);
+      dispatch(setError('Failed to fetch the offer by its ID.'));
     }
   },
 );
-
 
 export const clearErrorAction = createAsyncThunk(
   'clearError',
@@ -63,13 +62,8 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
     extra: AxiosInstance;
 }>(
   'user/checkAuth',
-  async (_arg, {dispatch, extra: api}) => {
-    try {
-      await api.get(APIRoute.Login);
-      dispatch(requireAuthorization(AuthorizationStatus.Auth));
-    } catch {
-      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
-    }
+  async (_arg, {extra: api}) => {
+    await api.get(APIRoute.Login);
   },
 );
 
@@ -83,8 +77,6 @@ export const loginAction = createAsyncThunk<void, AuthData, {
     const {data: {token}} = await api.post<UserData>(APIRoute.Login, login);
     saveToken(token);
     dispatch(redirectToRoute(AppRoute.Main));
-    // console.log('test');
-
   },
 );
 
@@ -94,10 +86,9 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     extra: AxiosInstance;
 }>(
   'user/logout',
-  async (_arg, {dispatch, extra: api}) => {
+  async (_arg, {extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
   },
 );
 
@@ -158,7 +149,6 @@ export const fetchSendCommentAction = createAsyncThunk<Comment | null, {rating: 
 }>(
   'fetchSendComment',
   async ({rating, comment, id}, {dispatch, extra: api}) => {
-    // console.log(rating, comment, id);
     const {data} = await api.post<Comment>(`${APIRoute.Comments}/${id}`, {rating, comment});
     dispatch(fetchCommentsAction(id));
     return data;

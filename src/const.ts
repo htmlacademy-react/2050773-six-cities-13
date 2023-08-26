@@ -48,3 +48,10 @@ export enum RequestStatus {
   Success = 'Success',
   Error = 'Error',
 }
+
+export enum NameSpace {
+  Favorites = 'FAVORITES',
+  OfferById = 'OFFER_BY_ID',
+  Offers = 'OFFERS',
+  User = 'USER',
+}

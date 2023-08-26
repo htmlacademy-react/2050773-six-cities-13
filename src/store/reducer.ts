@@ -2,8 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { TOffer, TOfferDescription } from '../types/offer';
 import { TReview, Comment } from '../types/review';
 import {
-  changeCity, fillOffersList, changeSortType,
-  requireAuthorization, setError,
+  changeCity, fillOffersList, changeSortType, setError,
   setOffersDataLoadingStatus,
   loadNearbyOffers, loadOfferById, loadFavorites,
   loadComments, sendComment
@@ -18,7 +17,6 @@ type InitialStateType = {
   city: string;
   offers: TOffer[];
   sortType: SortType;
-  authorizationStatus: AuthorizationStatus;
   isOffersDataLoading: boolean;
   error: string | null;
   favorites: TOffer[];
@@ -33,7 +31,6 @@ const InitialState: InitialStateType = {
   city: DEFAULT_CITY,
   offers: [],
   sortType: DEFAULT_SORT,
-  authorizationStatus: AuthorizationStatus.Unknown,
   isOffersDataLoading: false,
   error: null,
   favorites: [],
@@ -54,9 +51,6 @@ const reducer = createReducer(InitialState, (builder) => {
     })
     .addCase(changeSortType, (state, action) => {
       state.sortType = action.payload.type;
-    })
-    .addCase(requireAuthorization, (state, action) => {
-      state.authorizationStatus = action.payload;
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
