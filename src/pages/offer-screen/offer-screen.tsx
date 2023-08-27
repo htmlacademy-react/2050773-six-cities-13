@@ -5,21 +5,18 @@ import { useAppSelector } from '../../hooks/index/index.ts';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchNearbyOffersAction } from '../../store/api-actions.ts';
-import { RequestStatus } from '../../const.ts';
 import { Helmet } from 'react-helmet-async';
-import NotFoundScreen from '../not-found-screen/not-found-screen.tsx';
-import LoadingScreen from '../loading-screen/loading-screen.tsx';
 import OfferDescription from '../../components/offer-description/offer-description.tsx';
 // import { TReview } from '../../types/review.ts';
 import { fetchOfferByIdAction } from '../../store/api-actions.ts';
+import { getOfferById, getNearbyOffers } from '../../store/offer-id-process/offer-id-process.selector.ts';
 
 
 function OfferScreen():JSX.Element {
   const {id} = useParams();
   const dispatch = useDispatch();
-  const offer = useAppSelector((state) => state.offer);
-  const closeCities = useAppSelector((state) => state.nearbyOffers).slice(0,3);
-  const fetchingStatus = useAppSelector((state) => state.offerFetchingStatus);
+  const offer = useAppSelector(getOfferById);
+  const closeCities = useAppSelector(getNearbyOffers).slice(0,3);
 
   useEffect(() => {
     if (id) {
@@ -30,9 +27,7 @@ function OfferScreen():JSX.Element {
 
   return (
     <div className="page">
-      {fetchingStatus === RequestStatus.Error && <NotFoundScreen />}
-      {fetchingStatus === RequestStatus.Pending && <LoadingScreen />}
-      {fetchingStatus === RequestStatus.Success && offer && (
+      {offer && (
         <>
           <Helmet>
             <title>{`${offer.city.name}. ${offer.title}`}</title>

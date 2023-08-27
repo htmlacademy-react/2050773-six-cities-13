@@ -17,7 +17,7 @@ export type OffersProcess = {
   offers: TOffer[];
   sortType: SortType;
   isOffersDataLoading: boolean;
-  error: boolean;
+  hasError: boolean;
 }
 
 export type OfferIdProcess = {

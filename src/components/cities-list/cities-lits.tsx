@@ -1,26 +1,21 @@
-import { changeCity, fillOffersList } from '../../store/action';
 import { useAppDispatch, useAppSelector } from '../../hooks/index';
-import { TOffer } from '../../types/offer';
 import classNames from 'classnames';
+import { CITIES } from '../../const';
+import { changeCity } from '../../store/offers-process/offers-process.slice';
+import { getCity } from '../../store/offers-process/offers-process.selector';
 
-type CitiesListProps = {
-  cities: string[];
-  offers: TOffer[];
-};
-
-function CitiesList({cities, offers}: CitiesListProps): JSX.Element {
+function CitiesList(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const handleCityCheck = (city: string) => {
-    dispatch(changeCity({city}));
-    dispatch(fillOffersList({offers}));
+    dispatch(changeCity(city));
   };
 
-  const activeCity = useAppSelector((state) => state.city);
+  const activeCity = useAppSelector(getCity);
 
   return(
     <ul className="locations__list tabs__list">
-      {cities && cities.map((city) => (
+      {CITIES.map((city) => (
         <li
           key={city}
           className="locations__item"

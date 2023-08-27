@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { AuthorizationStatus } from '../../const';
 import { AppRoute } from '../../const';
 import cn from 'classnames';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selector';
 
 type CardProps = {
   offer: TOffer;
@@ -16,7 +17,7 @@ function Card({offer, onCardHover}: CardProps): JSX.Element {
   const dispatch = useAppDispatch();
   const [isFavoriteOffer, setFavoriteOffer] = useState<boolean>(isFavorite);
   const status = Number(!isFavoriteOffer);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
 
   const handlerCardHover = (card: TOffer) => {

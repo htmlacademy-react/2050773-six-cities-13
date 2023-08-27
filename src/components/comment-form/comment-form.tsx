@@ -1,6 +1,7 @@
-import { useAppDispatch } from '../../hooks/index';
+import { useAppDispatch, useAppSelector } from '../../hooks/index';
 import { fetchSendCommentAction } from '../../store/api-actions';
 import { FormEvent } from 'react';
+import { getErrorStatus } from '../../store/offers-process/offers-process.selector';
 
 type CommentFormProps = {
   id: string;
@@ -9,6 +10,8 @@ type CommentFormProps = {
 
 function CommentForm({id}: CommentFormProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const hasError = useAppSelector(getErrorStatus);
+
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -18,10 +21,12 @@ function CommentForm({id}: CommentFormProps): JSX.Element {
     const {rating: ratingData, review: comment} = Object.fromEntries(formData);
     const rating = Number(ratingData);
 
-    if (!isNaN(rating) && comment && comment.length >= 50) {
+    if (rating !== null && comment !== null) {
       dispatch(fetchSendCommentAction({rating, comment, id}));
-    } else {
-      console.error('Invalid rating or comment. Please ensure all fields are filled and comment has a minimum of 50 characters.');
+    }
+
+    if (!hasError) {
+      form.reset();
     }
   };
 

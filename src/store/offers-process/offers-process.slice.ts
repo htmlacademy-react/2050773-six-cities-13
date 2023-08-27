@@ -21,7 +21,7 @@ export const offersProcess = createSlice({
     changeCity: (state, action: PayloadAction) => {
       state.city = action.payload;
     },
-    changeSortingType: (state, action: PayloadAction) => {
+    changeSortType: (state, action: PayloadAction) => {
       state.sortType = action.payload;
     }
   },
@@ -51,4 +51,4 @@ export const offersProcess = createSlice({
   }
 });
 
-export const {changeCity, changeSortingType} = offersProcess.actions;
+export const {changeCity, changeSortType} = offersProcess.actions;

@@ -2,16 +2,17 @@ import { useRef } from 'react';
 import { SortType } from '../../const.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks/index/index.ts';
 import cn from 'classnames';
-import { changeSortType } from '../../store/action.ts';
+import { getSortType } from '../../store/offers-process/offers-process.selector.ts';
+import { changeSortType } from '../../store/offers-process/offers-process.slice.ts';
 
 
 function Sort(): JSX.Element {
   const sortingListRef = useRef < HTMLUListElement | null > (null);
-  const activeSortType = useAppSelector((state) => state.sortType);
+  const activeSortType = useAppSelector(getSortType);
   const dispatch = useAppDispatch();
 
   const handleSortClick = (type: SortType) => {
-    dispatch(changeSortType({type}));
+    dispatch(changeSortType(type));
   };
 
   return(

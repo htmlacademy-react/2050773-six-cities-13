@@ -6,16 +6,19 @@ import { useAppSelector, useAppDispatch } from '../../hooks/index';
 import { fetchCommentsAction } from '../../store/api-actions';
 import { useEffect } from 'react';
 import { AuthorizationStatus } from '../../const';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selector';
+import { getComments } from '../../store/offer-id-process/offer-id-process.selector';
 
-type OfferDetailsProps = {
-    offer: TOfferDescription;
+type OfferDescriptionProps = {
+  offer: TOfferDescription;
 };
 
-function OfferDescription({offer}: OfferDetailsProps): JSX.Element {
-  const {id, images, isPremium, title, rating, type, bedrooms, maxAdults, price, host, goods, description} = offer;
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const reviews = useAppSelector((state) => state.comments);
+function OfferDescription({offer}: OfferDescriptionProps): JSX.Element {
+  const {id, images, isPremium, title, rating, type, bedrooms, maxAdults, price, host, goods, description, isFavorite} = offer;
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const reviews = useAppSelector(getComments);
   const dispatch = useAppDispatch();
+  const offerImages = images.slice(0,6);
 
   useEffect(() => {
     if (id) {
@@ -27,7 +30,7 @@ function OfferDescription({offer}: OfferDetailsProps): JSX.Element {
     <>
       <div className="offer__gallery-container container">
         <div className="offer__gallery">
-          {images.map((image) => (
+          {offerImages.map((image) => (
             <div key={image} className="offer__image-wrapper">
               <img className="offer__image" src={image} alt="Photo studio" />
             </div>
@@ -39,19 +42,11 @@ function OfferDescription({offer}: OfferDetailsProps): JSX.Element {
           {isPremium && <div className="offer__mark"><span>Premium</span></div>}
           <div className="offer__name-wrapper">
             <h1 className="offer__name">{title}</h1>
-            <button className="offer__bookmark-button button" type="button">
-              <svg className="offer__bookmark-icon" width={31} height={33}>
-                <use xlinkHref="#icon-bookmark"></use>
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </button>
+            {/* <FavoriteButton onFavoriteClick={handleFavoriteClick} isFavoriteOffer={isFavorite} isOfferFullCard={isOfferFullCard} /> */}
           </div>
           <div className="offer__rating rating">
             <div className="offer__stars rating__stars">
-              <span style={{
-                width: '80%'
-              }}
-              >
+              <span>
               </span>
               <span className="visually-hidden">Rating</span>
             </div>
@@ -76,7 +71,7 @@ function OfferDescription({offer}: OfferDetailsProps): JSX.Element {
             <h2 className="offer__host-title">Meet the host</h2>
             <div className="offer__host-user user">
               <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                <img className="offer__avatar user__avatar" src="img/avatar-angelina.jpg" width={74} height={74} alt="Host avatar" />
+                <img className="offer__avatar user__avatar" src={host.avatarUrl} width={74} height={74} alt="Host avatar" />
               </div>
               <span className="offer__user-name">{host.name}</span>
               {host.isPro && <span className="offer__user-status">Pro</span>}
@@ -86,6 +81,7 @@ function OfferDescription({offer}: OfferDetailsProps): JSX.Element {
             </div>
           </div>
           <section className="offer__reviews reviews">
+            <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
             <ReviewsList reviews={reviews} />
             {authorizationStatus === AuthorizationStatus.Auth && <CommentForm id={id} />}
           </section>
