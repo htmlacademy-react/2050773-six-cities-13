@@ -13,14 +13,14 @@ import AuthorizationNav from '../authorization-header/authorization-header';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import { getAuthorizationStatus, getAuthCheckedStatus } from '../../store/user-process/user-process.selector';
-import { getOfferDataLoadingStatus } from '../../store/offer-id-process/offer-id-process.selector';
+import { getOffersDataLoadingStatus } from '../../store/offers-process/offers-process.selector';
 import { getOffers } from '../../store/offers-process/offers-process.selector';
 
 function App(): JSX.Element {
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isAuthChecked = useAppSelector(getAuthCheckedStatus);
-  const isOffersDataLoading = useAppSelector(getOfferDataLoadingStatus);
+  const isOffersDataLoading = useAppSelector(getOffersDataLoadingStatus);
   const offers = useAppSelector(getOffers);
 
 
