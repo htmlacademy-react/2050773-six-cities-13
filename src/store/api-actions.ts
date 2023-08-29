@@ -8,6 +8,7 @@ import { redirectToRoute} from './action';
 import { dropToken, saveToken } from '../services/token';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
+import { saveEmail, dropEmail } from '../services/login';
 
 export const fetchOffersAction = createAsyncThunk<TOffer[], undefined, {
   dispatch: AppDispatch;
@@ -115,7 +116,7 @@ extra: AxiosInstance;
   async (login, {dispatch, extra: api}) => {
     const {data} = await api.post<UserData>(APIRoute.Login, login);
     saveToken(data.token);
-    // saveUserEmail(data.email);
+    saveEmail(data.email);
     dispatch(redirectToRoute(AppRoute.Main));
   },
 );
@@ -130,6 +131,6 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();
-    // dropUserEmail();
+    dropEmail();
   },
 );

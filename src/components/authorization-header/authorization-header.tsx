@@ -4,6 +4,7 @@ import { AppRoute } from '../../const.ts';
 import { Link } from 'react-router-dom';
 import { AuthorizationStatus } from '../../const.ts';
 import { Outlet } from 'react-router-dom';
+import { getEmail } from '../../services/login.ts';
 
 type LoginProps = {
   authorizationStatus: AuthorizationStatus;
@@ -11,6 +12,7 @@ type LoginProps = {
 
 function AuthorizationHeader({authorizationStatus}: LoginProps):JSX.Element {
   const dispatch = useAppDispatch();
+  const email = getEmail();
 
   return(
     <>
@@ -31,7 +33,7 @@ function AuthorizationHeader({authorizationStatus}: LoginProps):JSX.Element {
                       <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                         <div className="header__avatar-wrapper user__avatar-wrapper">
                         </div>
-                        <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                        <span className="header__user-name user__name">{email}</span>
                         <span className="header__favorite-count">666</span>
                       </Link>
                     </li>
