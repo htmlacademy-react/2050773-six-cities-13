@@ -19,7 +19,7 @@ function WelcomeScreen({offers}: WelcomeScreenProps): JSX.Element {
 
   const city = useAppSelector(getCity);
   const sortType = useAppSelector(getSortType);
-  const currentOffers = [];
+  const currentOffers = sorting[sortType](offers.filter((offer) => offer.city.name === city));
   const [selectedOffer, setSelectedOffer] = useState<TOffer | undefined>(undefined);
 
   const handleCardHover = (point: TOffer) => {
