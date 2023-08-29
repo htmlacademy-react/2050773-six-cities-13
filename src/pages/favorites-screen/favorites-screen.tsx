@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 import FavoriteList from '../../components/favorite-list/favorite-list';
 import FavoriteListEmpty from '../../components/favorite-list-empty/favorite-list-empty';
 import { useAppSelector } from '../../hooks/index';
+import { getFavorites } from '../../store/favorites-process/favorites-process.selector';
 
 
 function FavoritesScreen(): JSX.Element {
-  const favorites = useAppSelector((state) => state.favorites);
-  console.log(favorites);
+  const favorites = useAppSelector(getFavorites);
 
   return(
     <div className="page">

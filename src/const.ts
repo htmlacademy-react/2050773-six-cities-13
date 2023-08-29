@@ -34,7 +34,7 @@ export enum SortType {
 export enum APIRoute {
   Offers = '/offers',
   OffersNearBy = '/nearby',
-  Faforite = '/favorite',
+  Favorite = '/favorite',
   Comments = '/comments',
   Login = '/login',
   Logout = '/logout',
@@ -47,4 +47,11 @@ export enum RequestStatus {
   Pending = 'Pending',
   Success = 'Success',
   Error = 'Error',
+}
+
+export enum NameSpace {
+  Favorites = 'FAVORITES',
+  OfferById = 'OFFER_BY_ID',
+  Offers = 'OFFERS',
+  User = 'USER',
 }

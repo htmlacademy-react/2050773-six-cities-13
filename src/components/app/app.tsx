@@ -1,5 +1,5 @@
 import {Route, Routes} from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import WelcomeScreen from '../../pages/welcome-screen/welcome-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
@@ -12,19 +12,19 @@ import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import AuthorizationNav from '../authorization-header/authorization-header';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import { getAuthorizationStatus, getAuthCheckedStatus } from '../../store/user-process/user-process.selector';
+import { getOffersDataLoadingStatus } from '../../store/offers-process/offers-process.selector';
+import { getOffers } from '../../store/offers-process/offers-process.selector';
+
+function App(): JSX.Element {
+
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+  const isOffersDataLoading = useAppSelector(getOffersDataLoadingStatus);
+  const offers = useAppSelector(getOffers);
 
 
-type AppScreenProps = {
-  cities: string[];
-}
-
-function App({ cities}: AppScreenProps): JSX.Element {
-
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
-  const offers = useAppSelector((state) => state.offers);
-
-  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+  if (!isAuthChecked || isOffersDataLoading) {
     return (
       <LoadingScreen />
     );
@@ -39,7 +39,6 @@ function App({ cities}: AppScreenProps): JSX.Element {
               index element={
                 <WelcomeScreen
                   offers={offers}
-                  cities={cities}
                 />
               }
             />
