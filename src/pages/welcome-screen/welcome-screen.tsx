@@ -7,6 +7,7 @@ import Sort from '../../components/sort/sort.tsx';
 import { sorting } from '../../utils.ts';
 import { useState } from 'react';
 import { getCity, getSortType } from '../../store/offers-process/offers-process.selector.ts';
+import MainEmpty from '../../components/main-empty/main-empty.tsx';
 
 
 type WelcomeScreenProps = {
@@ -26,30 +27,37 @@ function WelcomeScreen({offers}: WelcomeScreenProps): JSX.Element {
   };
 
   return (
-    <main className="page__main page__main--index">
+    <main className={`page__main page__main--index ${!currentOffers.length ? 'page__main--index-empty' : ''}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
           <CitiesList />
         </section>
       </div>
-      <div className="cities">
-        <div className="cities__places-container container">
-          <section className="cities__places places">
-            <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{currentOffers.length} places to stay in {city}</b>
-            <Sort />
-            <div className="cities__places-list places__list tabs__content">
-              <CardList offers={currentOffers} onCardHover={handleCardHover}/>
+      {
+        currentOffers.length
+          ?
+          <div className="cities">
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{currentOffers.length} places to stay in {city}</b>
+                <Sort />
+                <div className="cities__places-list places__list tabs__content">
+                  <CardList offers={currentOffers} onCardHover={handleCardHover}/>
+                </div>
+              </section>
+              <div className="cities__right-section">
+                <section className="cities__map map">
+                  <Map offers={currentOffers} selectedOffer={selectedOffer} />
+                </section>
+              </div>
             </div>
-          </section>
-          <div className="cities__right-section">
-            <section className="cities__map map">
-              <Map offers={currentOffers} selectedOffer={selectedOffer} />
-            </section>
           </div>
-        </div>
-      </div>
+          :
+          <MainEmpty city={city}/>
+      }
+
     </main>
   );
 }

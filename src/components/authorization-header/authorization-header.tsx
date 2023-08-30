@@ -1,9 +1,11 @@
-import { useAppDispatch } from '../../hooks/index/index';
+import { useAppDispatch, useAppSelector } from '../../hooks/index/index';
 import { logoutAction } from '../../store/api-actions.ts';
 import { AppRoute } from '../../const.ts';
 import { Link } from 'react-router-dom';
 import { AuthorizationStatus } from '../../const.ts';
 import { Outlet } from 'react-router-dom';
+import { getEmail } from '../../services/login.ts';
+import { getFavoritesCount } from '../../store/favorites-process/favorites-process.selector.ts';
 
 type LoginProps = {
   authorizationStatus: AuthorizationStatus;
@@ -11,6 +13,8 @@ type LoginProps = {
 
 function AuthorizationHeader({authorizationStatus}: LoginProps):JSX.Element {
   const dispatch = useAppDispatch();
+  const email = getEmail();
+  const favoritesCount = useAppSelector(getFavoritesCount);
 
   return(
     <>
@@ -31,8 +35,8 @@ function AuthorizationHeader({authorizationStatus}: LoginProps):JSX.Element {
                       <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                         <div className="header__avatar-wrapper user__avatar-wrapper">
                         </div>
-                        <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                        <span className="header__favorite-count">666</span>
+                        <span className="header__user-name user__name">{email}</span>
+                        <span className="header__favorite-count">{favoritesCount}</span>
                       </Link>
                     </li>
                     <li className="header__nav-item">

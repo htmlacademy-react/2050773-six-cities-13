@@ -32,7 +32,6 @@ function Card({offer, onCardHover}: CardProps): JSX.Element {
     }
     setFavoriteOffer((prevState) => !prevState);
     dispatch(fetchChangeStatusFavoriteAction({status, id}));
-    // console.log(isFavoriteOffer);
   };
 
 

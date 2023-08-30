@@ -40,7 +40,7 @@ export const offersProcess = createSlice({
         state.error = true;
       })
       .addCase(fetchChangeStatusFavoriteAction.fulfilled, (state, action) => {
-        state.offers = state.offers.reduce((acc, offer) => {
+        state.offers = state.offers.reduce((acc: Offer[], offer) => {
           if (offer.id === action.payload.id) {
             return [...acc, {...offer,
               isFavorite: !offer.isFavorite}];
