@@ -3,6 +3,7 @@ import FavoriteList from '../../components/favorite-list/favorite-list';
 import FavoriteListEmpty from '../../components/favorite-list-empty/favorite-list-empty';
 import { useAppSelector } from '../../hooks/index';
 import { getFavorites } from '../../store/favorites-process/favorites-process.selector';
+import React from 'react';
 
 
 function FavoritesScreen(): JSX.Element {
@@ -32,4 +33,4 @@ function FavoritesScreen(): JSX.Element {
   );
 }
 
-export default FavoritesScreen;
+export default React.memo(FavoritesScreen);

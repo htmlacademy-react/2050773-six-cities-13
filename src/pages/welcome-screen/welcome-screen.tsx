@@ -8,7 +8,6 @@ import { sorting } from '../../utils.ts';
 import { useState } from 'react';
 import { getCity, getSortType } from '../../store/offers-process/offers-process.selector.ts';
 import MainEmpty from '../../components/main-empty/main-empty.tsx';
-import classNames from 'classnames';
 
 
 type WelcomeScreenProps = {
